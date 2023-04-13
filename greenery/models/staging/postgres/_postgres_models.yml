@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_addresses
+    description: Address information including zipcode, state, and country.
+  - name: stg_events
+    description: Event information including session, user, type, etc.
+  - name: stg_order_items
+    description: Order item information including product and quantity.
+  - name: stg_orders
+    description: Order information including promo, user, address, costs, tracking, etc.
+  - name: stg_products
+    description: Product information including name, price, and inventory.
+  - name: stg_promos
+    description: Promotion information including discount and status.
+  - name: stg_users
+    description: User information including name, email, and phone number.
