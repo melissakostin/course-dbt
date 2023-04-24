@@ -6,16 +6,16 @@
 
 SELECT
     order_id AS order_guid,
-    promo_id,
-    user_id,
-    address_id,
-    created_at,
+    promo_id AS order_promo_guid,
+    user_id AS order_user_guid,
+    address_id AS order_address_guid,
+    created_at AS order_created_at,
     order_cost,
-    shipping_cost,
+    shipping_cost AS order_shipping_cost,
     order_total,
-    tracking_id,
-    shipping_service,
-    estimated_delivery_at,
-    delivered_at,
-    status
+    tracking_id AS order_tracking_guid,
+    shipping_service AS order_shipping_service,
+    estimated_delivery_at AS order_estimated_delivery_at,
+    delivered_at AS order_delivered_at,
+    status AS order_status
 FROM {{ source('postgres', 'orders')}} 

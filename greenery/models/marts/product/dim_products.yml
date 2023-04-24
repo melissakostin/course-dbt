@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: Product information with additional event and order item data joined in.
+    columns:
+      - name: product_name
+        description: The name of the product.
+        tests:
+          - not_null

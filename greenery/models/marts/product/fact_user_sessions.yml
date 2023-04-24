@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: fact_user_sessions
+    description: Event session data including event types and duration of sessions, blended with user data.
+    columns:
+      - name: event_session_guid
+        description: ""
+        tests:
+          - unique
+          - not_null
