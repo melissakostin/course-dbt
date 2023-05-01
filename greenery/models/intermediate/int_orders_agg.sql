@@ -24,6 +24,7 @@ final as (
         orders.order_user_guid,
         orders.order_guid,
         order_items.order_item_quantity,
+        order_items.order_item_product_guid,
         promos.discount,
         orders.order_created_at,
         orders.order_cost,

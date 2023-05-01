@@ -127,3 +127,95 @@ To ensure tests are passing regularly, I'd set up a job to run daily and alert m
 - Philodendron
 - Monstera
 - String of pearls
+
+
+# Week 3 Questions
+
+## Part 1
+What is our overall conversion rate? **62.46%**
+```
+with session_counts as (
+    select
+        count(distinct event_session_checkout) as sessions_with_purchase,
+        count(distinct event_session_guid) as total_sessions
+    from fact_conversion_rate
+)
+
+select
+    round((sessions_with_purchase / total_sessions) * 100, 2) as overall_conversion_rate
+from session_counts;
+```
+
+What is our conversion rate by product?
+```
+with session_counts_product as (
+    select
+        product_name,
+        count(distinct event_session_checkout) as sessions_with_purchase,
+        count(distinct event_session_guid) as total_sessions
+    from fact_conversion_rate
+    where product_name is not null
+    group by 1
+)
+
+select
+    product_name,
+    round((sessions_with_purchase / total_sessions) * 100, 2) as overall_conversion_rate
+from session_counts_product
+order by 2 desc;
+```
+
+| **Product Name** | **Overall Conversion Rate** |
+|------------------| ----------------------------|
+|String of pearls | 60.94 |
+|Arrow Head       |	55.56 |
+|Cactus           |	54.55 |
+|ZZ Plant         |	53.97 |
+|Bamboo           |	53.73 |
+|Rubber Plant     |	51.85 |
+|Monstera |	51.02 |
+|Calathea Makoyana |	50.94 |
+|Fiddle Leaf Fig |	50 |
+|Majesty Palm |	49.25 |
+|Aloe Vera |	49.23 |
+|Devil's Ivy |	48.89 |
+|Philodendron |	48.39 |
+|Jade Plant |	47.83 |
+|Pilea Peperomioides |	47.46 |
+|Spider Plant |	47.46 |
+|Dragon Tree |	46.77 |
+|Money Tree |	46.43 |
+|Orchid |	45.33 |
+|Bird of Paradise |	45 |
+|Ficus |	42.65 |
+|Birds Nest Fern |	42.31 |
+|Pink Anthurium |	41.89 |
+|Boston Fern |	41.27 |
+|Alocasia Polly |	41.18 |
+|Peace Lily |	40.91 |
+|Ponytail Palm |	40 |
+|Snake Plant |	39.73 |
+|Angel Wings Begonia |	39.34 |
+|Pothos |	34.43 |
+
+## Part 6
+**Which products had their inventory change from Week 2 to Week 3?**
+```
+with latest_update as (
+    select max(dbt_valid_from) as max_date
+    from inventory_snapshot
+    )
+
+select distinct name
+from inventory_snapshot
+join latest_update on latest_update.max_date = inventory_snapshot.dbt_valid_from
+where dbt_valid_to is null
+and dbt_valid_from = max_date;
+```
+- Monstera
+- Pothos
+- Philodendron
+- ZZ Plant
+- String of pearls
+- Bamboo
+

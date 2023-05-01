@@ -1,0 +1,11 @@
+version: 2
+
+macros:
+  - name: event_types_agg
+    description: Aggregates total event types.
+    docs:
+      show: true
+  - name: grant
+    description: Enables same grants to be applied to models.
+    docs:
+      show: true

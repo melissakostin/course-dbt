@@ -23,9 +23,6 @@ select
     session_events_agg.add_to_carts,
     session_events_agg.checkouts,
     session_events_agg.package_shippeds,
-    session_events_agg.page_views,
-    session_events_agg.first_session_event_at as first_session_event,
-    session_events_agg.last_session_event_at as last_session_event,
-    datediff('minute',first_session_event, last_session_event) as session_length_minutes
+    session_events_agg.page_views
 from session_events_agg
 left join users on users.user_guid = session_events_agg.event_user_guid

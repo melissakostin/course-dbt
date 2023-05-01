@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: fact_conversion_rate
+    description: Enables easy calculations of overall conversion rates and conversion rates by product.
+    columns:
+      - name: event_session_guid
+        description: ""
+
+      - name: event_product_guid
+        description: ""
+
+      - name: order_item_product_guid
+        description: ""
+
+      - name: product_name
+        description: ""
+
+      - name: event_session_checkout
+        description: ""
+
+      - name: order_item_quantity
+        description: ""
