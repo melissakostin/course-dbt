@@ -38,4 +38,4 @@ models:
       +materialized: view
   
     +post-hook:
-      - "{{ grant(role='transformer_dev') }}"
+      - "{{ grant(role='reporting') }}"
