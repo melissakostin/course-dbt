@@ -219,3 +219,77 @@ and dbt_valid_from = max_date;
 - String of pearls
 - Bamboo
 
+
+# Week 4 Questions
+## Part 1. dbt Snapshots
+**Which products had their inventory change from week 3 to week 4?**
+```
+with latest_week as (
+    select max(dbt_valid_from) as max_date
+    from inventory_snapshot
+    )
+
+select distinct
+    name
+from inventory_snapshot
+join latest_week on latest_week.max_date = inventory_snapshot.dbt_valid_from
+where dbt_valid_to is null
+and dbt_valid_from = max_date;
+``` 
+- Monstera
+- Pothos
+- Philodendron
+- ZZ Plant
+- String of pearls
+- Bamboo
+
+**Now that we have 3 weeks of snapshot data, can you use the inventory changes to determine which products had the most fluctuations in inventory?**
+```
+with last_week_inventory as (
+    select product_id, name, inventory as week_3_inventory
+    from inventory_snapshot
+    where dbt_updated_at = (select max(dbt_updated_at) from inventory_snapshot)
+    ),
+
+first_week_inventory as (
+    select product_id, name, inventory as week_1_inventory
+    from inventory_snapshot
+    where dbt_updated_at = (select min(dbt_updated_at) from inventory_snapshot)
+    )
+
+select last_week_inventory.name, (week_1_inventory - week_3_inventory) as inventory_diff
+from last_week_inventory
+join first_week_inventory on first_week_inventory.product_id = last_week_inventory.product_id
+order by 2 desc;
+```
+| **NAME** |	**INVENTORY_DIFF** |
+ --- | --- |
+| String of pearls |	58 |
+| Pothos |	40 |
+| Philodendron |	36 |
+| ZZ Plant |	36 |
+| Monstera |	27 |
+| Bamboo |	12 |
+
+**Did we have any items go out of stock in the last 3 weeks?**
+```
+select name
+from inventory_snapshot
+where inventory = 0;
+``` 
+- String of Pearls
+- Pothos
+
+## Part 2. Modeling Challenge
+**How are our users moving through the product funnel? Which steps in the funnel have largest drop off points?**
+```
+select 
+    sum(page_views) as page_views, 
+    sum(add_to_carts) as add_to_carts, 
+    sum(checkouts) as checkouts
+from fact_product_funnel;
+```
+- Page View Sessions: 578
+- Add to Cart Sessions: 467
+- Checkout Sessions: 361
+
