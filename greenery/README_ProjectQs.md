@@ -293,3 +293,9 @@ from fact_product_funnel;
 - Add to Cart Sessions: 467
 - Checkout Sessions: 361
 
+## Part 3. Reflection Questions
+- dbt/analytics engineering is incredibly valuable in the modern data stack. Often times, the engineering team(s) are siloed from the business team(s), so I'd pitch it from the perspective that analytics engineering helps close that gap and empower business teams to be in charge of their own data, and using dbt is the best tool to achieve that.
+
+- My current client is using dbt, and they are actually bringing me on to help implement best practices and make their use of the tool as effective as possible. A few things I can already see I'm going to recommend are documenting the models using yml files, implementing tests, and using exposures to better understand where the data is being used by the business.
+
+- I think my SQL expertise/experience and strong understanding of data modeling will give me the most confidence in becoming an analytics engineer.
